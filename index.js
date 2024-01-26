@@ -6,7 +6,7 @@ function bookConstructor(bookName, bookDescription, read) {
 
 console.log("MObig's Library");
 
-const book = new bookConstructor('ATMYEN', 'Self teaching guide to relaern secondary school math', false);
+const book = new bookConstructor('ATMYEN', 'Self teaching guide to relearn secondary school math', false);
 
 console.log(book);
 
