@@ -1,2 +1,2 @@
-# mobigs-library
-Keep track of books you are reading
+# MObigs Library
+Keep track of the books you are reading
