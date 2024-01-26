@@ -4,11 +4,14 @@ function bookConstructor(bookName, bookDescription, read) {
     this.read = read;
 }
 
+const bookStorage = [];
+
 console.log("MObig's Library");
 
 const book = new bookConstructor('ATMYEN', 'Self teaching guide to relearn secondary school math', false);
+bookStorage.push(book);
 
-console.log(book);
+console.log(book, bookStorage);
 
 const div = document.createElement('div');
 const para1 = document.createElement('p');
