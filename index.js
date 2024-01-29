@@ -1,4 +1,4 @@
-function bookConstructor(bookName, bookDescription, read) {
+function BookConstructor(bookName, bookDescription, read) {
     this.bookName = bookName;
     this.bookDescription = bookDescription;
     this.read = read;
@@ -6,13 +6,11 @@ function bookConstructor(bookName, bookDescription, read) {
 
 const bookStorage = [];
 
-console.log("MObig's Library");
-
-const book = new bookConstructor('ATMYEN', 'Self teaching guide to relearn secondary school math', false);
+// Create and store book
+const book = new BookConstructor('ATMYEN', 'Self teaching guide to relearn secondary school math', false);
 bookStorage.push(book);
 
-console.log(book, bookStorage);
-
+// Creating book in DOM using constructor function
 const div = document.createElement('div');
 const para1 = document.createElement('p');
 const para2 = document.createElement('p');
