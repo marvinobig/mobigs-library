@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MObig's Library</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
     <script src="./index.js" defer></script>
-</head>
-<body>
-    <h1>Your Library</h1>
-</body>
+  </head>
+  <body>
+    <nav>
+      <h1>Your Library</h1>
+      <button>Reset Library</button>
+    </nav>
+    <main id="library">
+      <section id="library-form-container">
+        <button id="book-form-btn" type="button">Add Book</button>
+        <dialog id="book-form-modal">
+          <section>
+            <h2>Book Info</h2>
+            <button id="close-btn" type="button">Close</button>
+          </section>
+          <form>
+            <label for="book-name">
+              Book Name
+              <input id="book-name" type="text" />
+            </label>
+            <label for="book-description">
+              Book Description
+              <input id="book-description" type="text" />
+            </label>
+            <label for="book-pages">
+              Number of Pages
+              <input id="book-pages" type="number" />
+            </label>
+            <label for="read-status">
+              Read Status
+              <input type="checkbox" id="read-status">
+            </label>
+            <button id="book-submit" type="submit">Add</button>
+          </form>
+        </dialog>
+      </section>
+      <section id="library-display"></section>
+    </main>
+  </body>
 </html>
