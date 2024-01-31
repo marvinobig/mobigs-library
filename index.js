@@ -7,6 +7,16 @@ const bookFormSubmitBtn = document.querySelector("#book-submit");
 const closeBtn = document.querySelector("#close-btn");
 const bookForm = document.querySelector("#book-form-modal");
 
+window.onload = () => {
+  const books = JSON.parse(localStorage.getItem("books"));
+
+  console.log(books);
+
+  if (books) {
+    accessBooks(libraryElement, books, currID);
+  }
+};
+
 function BookConstructor(bookID, bookName, bookDescription, pages, read) {
   this.bookID = bookID;
   this.bookName = bookName;
@@ -31,6 +41,11 @@ function storeBook(BookConstructor, bookStorage, currID) {
   );
 
   bookStorage.push(book);
+  saveBookStorage(bookStorage);
+}
+
+function saveBookStorage(bookStorage) {
+  localStorage.setItem("books", JSON.stringify(bookStorage));
 }
 
 function displayBook(libraryElement, book, bookStorage) {
@@ -67,6 +82,7 @@ function deleteBook(cardElement, bookStorage, id) {
 
   bookStorage.splice(0, bookStorage.length, ...newBookArr);
   cardElement.remove();
+  saveBookStorage(bookStorage);
 }
 
 function setReadStatus(btn, bookStorage, id) {
@@ -79,6 +95,17 @@ function setReadStatus(btn, bookStorage, id) {
         book.read = true;
         btn.textContent = "Read";
       }
+    }
+  });
+
+  saveBookStorage(bookStorage);
+}
+
+function accessBooks(libraryElement, bookStorage, currID) {
+  bookStorage.forEach((book) => {
+    if (book.bookID == currID) {
+      displayBook(libraryElement, book, bookStorage);
+      currID++;
     }
   });
 }
@@ -98,11 +125,5 @@ bookFormSubmitBtn.addEventListener("click", (e) => {
   bookForm.close();
 
   // Creating book in DOM using constructor function
-  bookStorage.forEach((book) => {
-    if (book.bookID == currID) {
-      displayBook(libraryElement, book, bookStorage);
-    }
-  });
-
-  currID++;
+  accessBooks(libraryElement, bookStorage, currID);
 });
