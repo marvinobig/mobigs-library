@@ -1,5 +1,4 @@
 const bookStorage = [];
-let currID = 0;
 const libraryElement = document.querySelector("#library-display");
 const resetBtn = document.querySelector("#reset-btn");
 const bookFormBtn = document.querySelector("#book-form-btn");
@@ -24,12 +23,18 @@ function BookConstructor(bookID, bookName, bookDescription, pages, read) {
   this.read = read;
 }
 
-function storeBook(BookConstructor, bookStorage, currID) {
+function idGen() {
+  return Math.random().toString(36).slice(2);
+};
+
+function storeBook(BookConstructor, bookStorage) {
   const bookTitle = document.querySelector("#book-name").value;
   const bookDescription = document.querySelector("#book-description").value;
   const bookPages = document.querySelector("#book-pages").value;
   const readStatus = document.querySelector("#read-status").checked;
-  const id = bookStorage.length + 1;
+  const id = idGen();
+
+  console.log(id);
 
   const book = new BookConstructor(
     id,
@@ -69,10 +74,10 @@ function displayBook(libraryElement, book, bookStorage) {
   libraryElement.append(bookCard);
 
   deleteBtn.addEventListener("click", (e) =>
-    deleteBook(bookCard, bookStorage, Number(e.target.value))
+    deleteBook(bookCard, bookStorage, e.target.value)
   );
   readBtn.addEventListener("click", (e) =>
-    setReadStatus(readBtn, bookStorage, Number(e.target.value))
+    setReadStatus(readBtn, bookStorage, e.target.value)
   );
 }
 
@@ -117,7 +122,7 @@ closeBtn.addEventListener("click", () => {
 bookFormSubmitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  storeBook(BookConstructor, bookStorage, currID);
+  storeBook(BookConstructor, bookStorage);
   bookForm.close();
 
   accessBooks(libraryElement, bookStorage);
