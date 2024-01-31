@@ -25,7 +25,6 @@ function BookConstructor(bookID, bookName, bookDescription, pages, read) {
   this.read = read;
 }
 
-// Create and store book
 function storeBook(BookConstructor, bookStorage, currID) {
   const bookTitle = document.querySelector("#book-name").value;
   const bookDescription = document.querySelector("#book-description").value;
