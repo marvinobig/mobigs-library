@@ -10,8 +10,6 @@ const bookForm = document.querySelector("#book-form-modal");
 window.onload = () => {
   const books = JSON.parse(localStorage.getItem("books"));
 
-  console.log(books);
-
   if (books) {
     accessBooks(libraryElement, books, currID);
   }
@@ -123,6 +121,5 @@ bookFormSubmitBtn.addEventListener("click", (e) => {
   storeBook(BookConstructor, bookStorage, currID);
   bookForm.close();
 
-  // Creating book in DOM using constructor function
   accessBooks(libraryElement, bookStorage, currID);
 });
