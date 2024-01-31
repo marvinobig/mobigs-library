@@ -11,7 +11,8 @@ window.onload = () => {
   const books = JSON.parse(localStorage.getItem("books"));
 
   if (books) {
-    accessBooks(libraryElement, books, currID);
+    bookStorage.push(...books);
+    accessBooks(libraryElement, bookStorage);
   }
 };
 
@@ -28,9 +29,10 @@ function storeBook(BookConstructor, bookStorage, currID) {
   const bookDescription = document.querySelector("#book-description").value;
   const bookPages = document.querySelector("#book-pages").value;
   const readStatus = document.querySelector("#read-status").checked;
+  const id = bookStorage.length;
 
   const book = new BookConstructor(
-    currID,
+    id,
     bookTitle,
     bookDescription,
     bookPages,
@@ -98,12 +100,9 @@ function setReadStatus(btn, bookStorage, id) {
   saveBookStorage(bookStorage);
 }
 
-function accessBooks(libraryElement, bookStorage, currID) {
+function accessBooks(libraryElement, bookStorage) {
   bookStorage.forEach((book) => {
-    if (book.bookID == currID) {
-      displayBook(libraryElement, book, bookStorage);
-      currID++;
-    }
+    displayBook(libraryElement, book, bookStorage);
   });
 }
 
@@ -121,5 +120,5 @@ bookFormSubmitBtn.addEventListener("click", (e) => {
   storeBook(BookConstructor, bookStorage, currID);
   bookForm.close();
 
-  accessBooks(libraryElement, bookStorage, currID);
+  accessBooks(libraryElement, bookStorage);
 });
