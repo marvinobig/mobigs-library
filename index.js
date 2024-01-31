@@ -29,7 +29,7 @@ function storeBook(BookConstructor, bookStorage, currID) {
   const bookDescription = document.querySelector("#book-description").value;
   const bookPages = document.querySelector("#book-pages").value;
   const readStatus = document.querySelector("#read-status").checked;
-  const id = bookStorage.length;
+  const id = bookStorage.length + 1;
 
   const book = new BookConstructor(
     id,
