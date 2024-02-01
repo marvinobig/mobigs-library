@@ -48,6 +48,7 @@ button,
 input,
 label {
     line-height: 1.1;
+    margin: 0;
 }
 
 /* Balance text wrapping on headings */
@@ -87,4 +88,8 @@ textarea:not([rows]) {
 /* Anything that has been anchored to should have extra scroll margin */
 :target {
     scroll-margin-block: 5ex;
+}
+
+p {
+    margin: 0;
 }
