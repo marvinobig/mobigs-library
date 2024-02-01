@@ -65,9 +65,10 @@ function displayBook(libraryElement, book, bookStorage) {
   deleteBtn.value = book.bookID;
   title.textContent = book.bookName;
   para2.textContent = book.bookDescription;
-  para3.textContent = book.pages;
+  para3.textContent = book.pages > 1 ? `${book.pages} Pages` : `${book.pages} page`;
   readBtn.setAttribute("id", `read-btn-${book.bookID}`);
   readBtn.textContent = book.read ? "Read" : "Not Read";
+  readBtn.classList.add(book.read ? 'read' : 'not-read')
   readBtn.value = book.bookID;
 
   bookCard.append(deleteBtn, title, para2, para3, readBtn);
@@ -93,11 +94,15 @@ function setReadStatus(btn, bookStorage, id) {
   bookStorage.forEach((book) => {
     if (book.bookID === id) {
       if (book.read) {
+        btn.classList.remove(book.read ? "read" : "not-read");
         book.read = false;
         btn.textContent = "Not Read";
+        btn.classList.add(book.read ? "read" : "not-read");
       } else {
+        btn.classList.remove(book.read ? "read" : "not-read");
         book.read = true;
         btn.textContent = "Read";
+        btn.classList.add(book.read ? "read" : "not-read");
       }
     }
   });
@@ -107,7 +112,7 @@ function setReadStatus(btn, bookStorage, id) {
 
 function accessBooks(libraryElement, bookStorage) {
   libraryElement.replaceChildren();
-  
+
   bookStorage.forEach((book) => {
     displayBook(libraryElement, book, bookStorage);
   });
