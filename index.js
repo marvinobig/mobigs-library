@@ -2,9 +2,9 @@ const bookStorage = [];
 const libraryElement = document.querySelector("#library-display");
 const resetBtn = document.querySelector("#reset-btn");
 const bookFormBtn = document.querySelector("#book-form-btn");
-const bookFormSubmitBtn = document.querySelector("#book-submit");
 const closeBtn = document.querySelector("#close-btn");
-const bookForm = document.querySelector("#book-form-modal");
+const bookFormModal = document.querySelector("#book-form-modal");
+const bookFormElement = document.querySelector("#book-form-element");
 
 window.onload = () => {
   const books = JSON.parse(localStorage.getItem("books"));
@@ -119,18 +119,19 @@ function accessBooks(libraryElement, bookStorage) {
 }
 
 bookFormBtn.addEventListener("click", () => {
-  bookForm.showModal();
+  bookFormModal.showModal();
 });
 
 closeBtn.addEventListener("click", () => {
-  bookForm.close();
+  bookFormModal.close();
 });
 
-bookFormSubmitBtn.addEventListener("submit", (e) => {
+bookFormElement.addEventListener("submit", (e) => {
   e.preventDefault();
 
   storeBook(BookConstructor, bookStorage);
-  bookForm.close();
+  bookFormElement.reset();
+  bookFormModal.close();
 
   accessBooks(libraryElement, bookStorage);
 });
