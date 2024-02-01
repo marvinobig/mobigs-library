@@ -126,7 +126,7 @@ closeBtn.addEventListener("click", () => {
   bookForm.close();
 });
 
-bookFormSubmitBtn.addEventListener("click", (e) => {
+bookFormSubmitBtn.addEventListener("submit", (e) => {
   e.preventDefault();
 
   storeBook(BookConstructor, bookStorage);
