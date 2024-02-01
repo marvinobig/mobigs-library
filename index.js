@@ -106,6 +106,8 @@ function setReadStatus(btn, bookStorage, id) {
 }
 
 function accessBooks(libraryElement, bookStorage) {
+  libraryElement.replaceChildren();
+  
   bookStorage.forEach((book) => {
     displayBook(libraryElement, book, bookStorage);
   });
