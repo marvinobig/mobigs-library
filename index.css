@@ -1,0 +1,140 @@
+* {
+    --gap: 20px;
+    --padding: 20px;
+    --border: none;
+    --border-radius: 0.3rem;
+    --transition: all 0.2s;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+button {
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 5px 10px;
+}
+
+button:hover {
+    font-weight: bolder;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    padding: var(--padding);
+    background-color: #272727;
+    color: #fcfcfc;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    border: 2px solid #272727;
+    width: 100%;
+    padding: var(--padding);
+    max-width: 200px;
+    border-radius: var(--border-radius);
+    transition: all 0.2s;
+}
+
+article:hover {
+    transition: all 0.2s;
+    box-shadow: 7px 5px #272727;
+}
+
+article button:first-child {
+    align-self: flex-start;
+    border: none;
+    background-color: transparent;
+}
+
+article h3 {
+    text-wrap: pretty;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+#library-display {
+    display: flex;
+    justify-content: center;
+    gap: var(--gap);
+    flex-wrap: wrap;
+    padding: 40px var(--padding);
+}
+
+.read {
+    transition: var(--transition);
+    background-color: #00ff00c5;
+}
+
+.read:hover {
+    transition: var(--transition);
+    filter: saturate(50%);
+    font-weight: bold;
+}
+
+.not-read {
+    transition: var(--transition);
+    background-color: #ff0000c5;
+}
+
+.not-read:hover {
+    transition: var(--transition);
+    font-weight: bold;
+    filter: saturate(50%);
+}
+
+dialog {
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+}
+
+dialog::backdrop {
+    background-color: #272727af;
+}
+
+dialog section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+form label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 10px;
+}
+
+form label:focus-within {
+    border: 2px solid #272727;
+}
+
+form label input {
+    border: var(--border);
+    width: 100%;
+    height: 100%;
+}
+
+form label input:focus-within {
+    outline: none;
+}
+
+#read-input {
+    display: flex;
+    justify-content: flex-start;
+    width: fit-content;
+}
