@@ -6,38 +6,66 @@ const closeBtn = document.querySelector("#close-btn");
 const bookFormModal = document.querySelector("#book-form-modal");
 const bookFormElement = document.querySelector("#book-form-element");
 
-window.onload = () => {
-  const books = JSON.parse(localStorage.getItem("books"));
+const Library = ((libraryElement) => {
+  const bookStorage = [];
 
-  if (books) {
-    bookStorage.push(...books);
-    accessBooks(libraryElement, bookStorage);
+  function load() {
+    const books = JSON.parse(localStorage.getItem("books"));
+
+    if (books) {
+      bookStorage.push(...books);
+      refreshBookDisplay(libraryElement, bookStorage);
+    }
   }
+
+  function refreshBookDisplay() {
+    libraryElement.replaceChildren();
+
+    bookStorage.forEach((book) => {
+      displayBook(libraryElement, book, bookStorage);
+    });
+  }
+
+  function saveBookStorage() {
+    localStorage.setItem("books", JSON.stringify(bookStorage));
+  }
+
+  function deleteBook(cardElement, id) {
+    const newBookArr = bookStorage.filter((book) => book.bookID !== id);
+
+    bookStorage.splice(0, bookStorage.length, ...newBookArr);
+    cardElement.remove();
+    saveBookStorage();
+  }
+
+  return {
+    bookStorage,
+    load,
+    refreshBookDisplay,
+    saveBookStorage,
+    deleteBook
+  };
+})(libraryElement);
+
+window.onload = () => {
+  Library.load()
 };
 
-function BookConstructor(bookID, bookName, bookDescription, pages, read) {
-  this.bookID = bookID;
+function BookConstructor(bookName, bookDescription, pages, read) {
+  this.bookID = Math.random().toString(36).slice(2);
   this.bookName = bookName;
   this.bookDescription = bookDescription;
   this.pages = pages;
   this.read = read;
 }
 
-function idGen() {
-  return Math.random().toString(36).slice(2);
-};
-
 function storeBook(BookConstructor, bookStorage) {
   const bookTitle = document.querySelector("#book-name").value;
   const bookDescription = document.querySelector("#book-description").value;
   const bookPages = document.querySelector("#book-pages").value;
   const readStatus = document.querySelector("#read-status").checked;
-  const id = idGen();
-
-  console.log(id);
 
   const book = new BookConstructor(
-    id,
     bookTitle,
     bookDescription,
     bookPages,
@@ -45,11 +73,7 @@ function storeBook(BookConstructor, bookStorage) {
   );
 
   bookStorage.push(book);
-  saveBookStorage(bookStorage);
-}
-
-function saveBookStorage(bookStorage) {
-  localStorage.setItem("books", JSON.stringify(bookStorage));
+  Library.saveBookStorage();
 }
 
 function displayBook(libraryElement, book, bookStorage) {
@@ -65,10 +89,11 @@ function displayBook(libraryElement, book, bookStorage) {
   deleteBtn.value = book.bookID;
   title.textContent = book.bookName;
   para2.textContent = book.bookDescription;
-  para3.textContent = book.pages > 1 ? `${book.pages} Pages` : `${book.pages} page`;
+  para3.textContent =
+    book.pages > 1 ? `${book.pages} Pages` : `${book.pages} page`;
   readBtn.setAttribute("id", `read-btn-${book.bookID}`);
   readBtn.textContent = book.read ? "Read" : "Not Read";
-  readBtn.classList.add(book.read ? 'read' : 'not-read')
+  readBtn.classList.add(book.read ? "read" : "not-read");
   readBtn.value = book.bookID;
 
   bookCard.append(deleteBtn, title, para2, para3, readBtn);
@@ -77,17 +102,9 @@ function displayBook(libraryElement, book, bookStorage) {
   deleteBtn.addEventListener("click", (e) =>
     deleteBook(bookCard, bookStorage, e.target.value)
   );
-  readBtn.addEventListener("click", (e) =>
-    setReadStatus(readBtn, bookStorage, e.target.value)
-  );
-}
-
-function deleteBook(cardElement, bookStorage, id) {
-  const newBookArr = bookStorage.filter((book) => book.bookID !== id);
-
-  bookStorage.splice(0, bookStorage.length, ...newBookArr);
-  cardElement.remove();
-  saveBookStorage(bookStorage);
+  readBtn.addEventListener("click", (e) => {
+    setReadStatus(e.currentTarget, bookStorage, e.target.value);
+  });
 }
 
 function setReadStatus(btn, bookStorage, id) {
@@ -110,14 +127,6 @@ function setReadStatus(btn, bookStorage, id) {
   saveBookStorage(bookStorage);
 }
 
-function accessBooks(libraryElement, bookStorage) {
-  libraryElement.replaceChildren();
-
-  bookStorage.forEach((book) => {
-    displayBook(libraryElement, book, bookStorage);
-  });
-}
-
 bookFormBtn.addEventListener("click", () => {
   bookFormModal.showModal();
 });
@@ -133,5 +142,5 @@ bookFormElement.addEventListener("submit", (e) => {
   bookFormElement.reset();
   bookFormModal.close();
 
-  accessBooks(libraryElement, bookStorage);
+  refreshBookDisplay(libraryElement, bookStorage);
 });
